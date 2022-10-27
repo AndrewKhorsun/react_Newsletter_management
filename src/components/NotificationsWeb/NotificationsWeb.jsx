@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { AgentSearch } from "../AgentSeacrh/AgentSearch";
 
 export const NotificationsWeb = ({ checkedButton, onDefault }) => {
@@ -20,7 +21,7 @@ export const NotificationsWeb = ({ checkedButton, onDefault }) => {
     if (checkedButton) {
       setNews(true);
       setBuild(true);
-      setSelectValue("1")
+      setSelectValue("1");
     }
   }, [checkedButton]);
 
@@ -103,8 +104,8 @@ export const NotificationsWeb = ({ checkedButton, onDefault }) => {
             
               value={selectValue}
               onChange={({ target }) => {
-                setSelectValue(target.value)
-                onDefault()
+                setSelectValue(target.value);
+                onDefault();
               }}
               className="form-select"
               aria-label="Default select example"

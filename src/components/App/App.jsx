@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+
 import "../../components/App/App.css";
 import { ModalSave } from "../Modals/ModalSave";
 import { NotificationGeneral } from "../NotificationsGeneral/NotificationsGeneral";
@@ -11,8 +12,8 @@ function App() {
   const [toast, setToast] = useState("toast fade hide");
 
   const handleDefault = () => {
-    setOnDefault(false)
-  }
+    setOnDefault(false);
+  };
 
   return (
     <div className="App">

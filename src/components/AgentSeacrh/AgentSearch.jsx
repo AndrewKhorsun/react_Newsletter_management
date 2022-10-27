@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { ModalDeteils } from "../Modals/ModalDeteils";
 
 export const AgentSearch = ({
@@ -7,22 +7,20 @@ export const AgentSearch = ({
   topicsName,
   topicsDescription = "",
   checkedButton,
-  onDefault
+  onDefault,
 }) => {
   const [checked, setChecked] = useState(checkedButton);
   const [topics, setTopics] = useState(topicsList);
 
   useEffect(() => {
     if(checkedButton) {
-      setChecked(true)
+      setChecked(true);
     }
-  }, [checkedButton])
+  }, [checkedButton]);
 
   function onDelete(element) {
     setTopics(topics.filter((topic) => topic !== element));
   }
-
-
 
   return (
     <>
@@ -62,7 +60,7 @@ export const AgentSearch = ({
                 checked={checked}
                 onChange={() => {
                   setChecked(!checked);
-                  onDefault()
+                  onDefault();
                 }}
                 role="switch"
                 id="flexSwitchCheckDefault"

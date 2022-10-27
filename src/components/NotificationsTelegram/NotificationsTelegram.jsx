@@ -5,9 +5,9 @@ export const NotificationsTelegram = ({checkedButton, onDefault}) => {
 
   useEffect(() => {
     if(checkedButton) {
-      setChecked(true)
+      setChecked(true);
     }
-  }, [checkedButton])
+  }, [checkedButton]);
 
   return (
     <>
@@ -25,7 +25,7 @@ export const NotificationsTelegram = ({checkedButton, onDefault}) => {
                 checked={checked}
                 onChange={() => {
                   setChecked(!checked);
-                  onDefault()
+                  onDefault();
                 }}
                 role="switch"
                 id="flexSwitchCheckDefault"

@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 import "../../components/NotificationsGeneral/NotificationsGeneral.css";
-import { useState } from "react";
-import { useEffect } from "react";
 
 export const NotificationGeneral = ({ checkedButton, onDefault }) => {
   const [welcome, setWelcome] = useState(true);
