@@ -6,17 +6,32 @@ import Tooltip from "react-bootstrap/Tooltip";
 
 import "../../components/NotificationsGeneral/NotificationsGeneral.css";
 import { useState } from "react";
+import { useEffect } from "react";
 
-export const NotificationGeneral = ({ checkedButton }) => {
-  const [welcome, setWelcome] = useState(checkedButton);
-  const [webinars, setWebinars] = useState(checkedButton);
-  const [privateMessage, setPrivateMessage] = useState(checkedButton);
+export const NotificationGeneral = ({ checkedButton, onDefault }) => {
+  const [welcome, setWelcome] = useState(true);
+  const [webinars, setWebinars] = useState(true);
+  const [privateMessage, setPrivateMessage] = useState(true);
+  const [selectValue, setSelectValue] = useState("");
 
-  console.log("ghjdthrf", checkedButton);
+  const selectOptions = [
+    { value: "1", text: "Мгновенно" },
+    { value: "2", text: "1 раз в день" },
+    { value: "3", text: "Отключить" },
+  ];
 
   const renderTooltip = (props) => (
     <Tooltip {...props}>Письма об обновлениях и улучшениях платформы</Tooltip>
   );
+
+  useEffect(() => {
+    if (checkedButton) {
+      setWelcome(true);
+      setWebinars(true);
+      setPrivateMessage(true);
+      setSelectValue("1");
+    }
+  }, [checkedButton]);
 
   return (
     <div className="mb-5">
@@ -34,6 +49,7 @@ export const NotificationGeneral = ({ checkedButton }) => {
                 checked={welcome}
                 onChange={() => {
                   setWelcome(!welcome);
+                  onDefault();
                 }}
                 role="switch"
                 id="flexSwitchCheckDefault"
@@ -41,7 +57,10 @@ export const NotificationGeneral = ({ checkedButton }) => {
             </div>
           </div>
           <div className="col-4">
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+            <label
+              className="form-check-label"
+              htmlFor="flexSwitchCheckDefault"
+            >
               4 полезных и емких письма в течение месяца
             </label>
           </div>
@@ -60,6 +79,7 @@ export const NotificationGeneral = ({ checkedButton }) => {
                 checked={webinars}
                 onChange={() => {
                   setWebinars(!webinars);
+                  onDefault();
                 }}
                 role="switch"
                 id="flexSwitchCheckDefault"
@@ -67,7 +87,10 @@ export const NotificationGeneral = ({ checkedButton }) => {
             </div>
           </div>
           <div className="col-4">
-            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
+            <label
+              className="form-check-label"
+              htmlFor="flexSwitchCheckDefault"
+            >
               Бесплатные вебинары проходят 1 раз в 2 недели. Вы будете получать
               2 письма с напоминанием о предстоящем вебинаре
             </label>
@@ -100,6 +123,7 @@ export const NotificationGeneral = ({ checkedButton }) => {
                 checked={privateMessage}
                 onChange={() => {
                   setPrivateMessage(!privateMessage);
+                  onDefault();
                 }}
                 role="switch"
                 id="flexSwitchCheckDefault"
@@ -107,11 +131,22 @@ export const NotificationGeneral = ({ checkedButton }) => {
             </div>
           </div>
           <div className="col-4">
-            <select className="form-select" aria-label="Default select example">
-              <option spellCheck>Частота отправки</option>
-              <option value="1">Мгновенно</option>
-              <option value="2">1 раз в день</option>
-              <option value="3">Отключить</option>
+            <select
+              value={selectValue}
+              onChange={({ target }) => {
+                setSelectValue(target.value);
+                onDefault();
+              }}
+              className="form-select"
+              aria-label="Default select example"
+            >
+              {selectOptions.map((el) => {
+                return (
+                  <option key={el.value} value={el.value}>
+                    {el.text}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>

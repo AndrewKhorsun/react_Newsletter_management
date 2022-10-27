@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AgentSearch } from "../AgentSeacrh/AgentSearch";
 
-export const NotificationsWeb = ({ checkedButton }) => {
-  const [news, setNews] = useState(checkedButton);
-  const [build, setBuild] = useState(checkedButton);
+export const NotificationsWeb = ({ checkedButton, onDefault }) => {
+  const [news, setNews] = useState(true);
+  const [build, setBuild] = useState(true);
+  const [selectValue, setSelectValue] = useState("");
 
   const busines = ["Seo", "Продвижение", "Аналитика"];
   const numbers = ["Seo", "Аналитика"];
   const seo = ["Seo", "Продвижение", "Аналитика"];
   const exchange = ["Биржи ссылок: Не обнаружен"];
+  const selectOptions = [
+    { value: "1", text: "Мгновенно" },
+    { value: "2", text: "1 раз в день" },
+    { value: "3", text: "Отключить" },
+  ];
+
+  useEffect(() => {
+    if (checkedButton) {
+      setNews(true);
+      setBuild(true);
+      setSelectValue("1")
+    }
+  }, [checkedButton]);
 
   return (
     <>
@@ -26,6 +40,7 @@ export const NotificationsWeb = ({ checkedButton }) => {
                 checked={news}
                 onChange={() => {
                   setNews(!news);
+                  onDefault();
                 }}
                 role="switch"
                 id="flexSwitchCheckDefault"
@@ -36,6 +51,7 @@ export const NotificationsWeb = ({ checkedButton }) => {
       </div>
       <p className="agent-search">Поисковые агенты</p>
       <AgentSearch
+        onDefault={onDefault}
         checkedButton={checkedButton}
         topicsList={busines}
         topicsName="Бизнес"
@@ -43,16 +59,19 @@ export const NotificationsWeb = ({ checkedButton }) => {
               что найдены новые площадки"
       />
       <AgentSearch
+        onDefault={onDefault}
         topicsList={numbers}
         topicsName="123"
         checkedButton={checkedButton}
       />
       <AgentSearch
+        onDefault={onDefault}
         topicsList={seo}
         topicsName="SEO"
         checkedButton={checkedButton}
       />
       <AgentSearch
+        onDefault={onDefault}
         topicsList={exchange}
         topicsName="Бирж. ссылки"
         checkedButton={checkedButton}
@@ -72,6 +91,7 @@ export const NotificationsWeb = ({ checkedButton }) => {
                 checked={build}
                 onChange={() => {
                   setBuild(!build);
+                  onDefault();
                 }}
                 role="switch"
                 id="flexSwitchCheckDefault"
@@ -79,11 +99,23 @@ export const NotificationsWeb = ({ checkedButton }) => {
             </div>
           </div>
           <div className="col-4">
-            <select className="form-select" aria-label="Default select example">
-              <option spellCheck>Частота отправки</option>
-              <option value="1">Мгновенно</option>
-              <option value="2">1 раз в день</option>
-              <option value="3">Отключить</option>
+            <select
+            
+              value={selectValue}
+              onChange={({ target }) => {
+                setSelectValue(target.value)
+                onDefault()
+              }}
+              className="form-select"
+              aria-label="Default select example"
+            >
+              {selectOptions.map((el) => {
+                return (
+                  <option key={el.value} value={el.value}>
+                    {el.text}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>

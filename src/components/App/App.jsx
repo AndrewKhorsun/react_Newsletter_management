@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import "../../components/App/App.css";
 import { ModalSave } from "../Modals/ModalSave";
@@ -9,6 +10,10 @@ function App() {
   const [onDefault, setOnDefault] = useState(true);
   const [toast, setToast] = useState("toast fade hide");
 
+  const handleDefault = () => {
+    setOnDefault(false)
+  }
+
   return (
     <div className="App">
       <div className="container">
@@ -19,16 +24,15 @@ function App() {
           действительно вас не интересуют. Мы обещаем слать только полезные
           письма где 😊
         </h3>
-        <NotificationGeneral checkedButton={onDefault} />
-        <NotificationsWeb checkedButton={onDefault} />
-        <NotificationsTelegram checkedButton={onDefault} />
+        <NotificationGeneral checkedButton={onDefault} onDefault={handleDefault}/>
+        <NotificationsWeb checkedButton={onDefault} onDefault={handleDefault}/>
+        <NotificationsTelegram checkedButton={onDefault} onDefault={handleDefault}/>
         <div className="d-flex justify-content-start mt-4">
           <button
             type="button "
             className="btn btn-outline-primary  me-3 "
             onClick={() => {
               setOnDefault(true);
-              console.log("test", onDefault);
             }}
           >
             По умолчанию

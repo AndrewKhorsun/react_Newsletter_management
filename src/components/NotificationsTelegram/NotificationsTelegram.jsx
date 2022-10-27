@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const NotificationsTelegram = ({checkedButton}) => {
-  const [checked, setChecked] = useState(checkedButton);
+export const NotificationsTelegram = ({checkedButton, onDefault}) => {
+  const [checked, setChecked] = useState(true);
+
+  useEffect(() => {
+    if(checkedButton) {
+      setChecked(true)
+    }
+  }, [checkedButton])
 
   return (
     <>
@@ -19,6 +25,7 @@ export const NotificationsTelegram = ({checkedButton}) => {
                 checked={checked}
                 onChange={() => {
                   setChecked(!checked);
+                  onDefault()
                 }}
                 role="switch"
                 id="flexSwitchCheckDefault"
